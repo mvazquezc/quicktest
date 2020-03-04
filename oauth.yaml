@@ -1,0 +1,35 @@
+---
+apiVersion: config.openshift.io/v1
+kind: OAuth
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+  name: cluster
+spec:
+  identityProviders:
+  - mappingMethod: add
+    name: mcs-paas
+    openID:
+      ca:
+        name: ""
+      claims:
+        email:
+        - email
+        name:
+        - name
+        preferredUsername:
+        - preferred_username
+      clientID: openshift
+      clientSecret:
+        name: mcs-openid-client-secret
+      issuer: https://test.com
+    type: OpenID
+  templates:
+    error:
+      name: ""
+    login:
+      name: ""
+    providerSelection:
+      name: ""
+  tokenConfig:
+    accessTokenMaxAgeSeconds: 0
